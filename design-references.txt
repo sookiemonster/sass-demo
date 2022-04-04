@@ -1,0 +1,5 @@
+Sass Pink: #CD6799
+Light Yellow: #FBEDC7
+Light Gray: #DEDEDC
+Medium Gray: #D3D3D1
+Dark Gray: #292929
