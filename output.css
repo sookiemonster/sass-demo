@@ -43,21 +43,44 @@ body {
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   fill: #DEDEDC;
+  width: 40px;
+  -webkit-transition: opacity 0.2s ease-out;
+  -moz-transition: opacity 0.2s ease-out;
+  -ms-transition: opacity 0.2s ease-out;
+  -o-transition: opacity 0.2s ease-out;
+  transition: opacity 0.2s ease-out;
 }
 #nav-toggle #prompt-close {
-  visibility: hidden;
   opacity: 0;
 }
 
 #nav-pane {
   position: fixed;
   top: 0;
-  right: 0;
+  right: -300px;
   display: flex;
   align-items: center;
   width: 300px;
   padding-left: 70px;
   height: 100vh;
+  -webkit-transition: transform 0.4s ease;
+  -moz-transition: transform 0.4s ease;
+  -ms-transition: transform 0.4s ease;
+  -o-transition: transform 0.4s ease;
+  transition: transform 0.4s ease;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+     supported by Chrome, Edge, Opera and Firefox */
   background-color: rgba(20, 20, 20, 0.5);
   backdrop-filter: blur(4px);
   z-index: 4;

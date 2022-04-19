@@ -13,9 +13,9 @@
             <svg id="prompt-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
               </svg>
-            <svg id="prompt-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 11">
-                <rect width="20" height="2.5" rx="1"></rect>
-                <rect y="8" width="20" height="2.5" rx="1"></rect>
+            <svg id="prompt-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 10">
+                <rect x="3" width="20" height="2" rx="1"></rect>
+                <rect x="3" y="8" width="20" height="2" rx="1"></rect>
             </svg>
         </div>
         <div id="nav-pane">
@@ -64,7 +64,7 @@
             <h1>Syntactically Awesome Stylesheets</h1>
         </header>
         <article role="main">
-            <section class="topic" id="definition">
+            <section class="topic" id="definition" data-topic="definition">
                 <h1>What is <span class="highlight">Sass?</span></h1>
                 <p>Sass is:
                     <ul>
@@ -73,7 +73,7 @@
                     </ul>
                 </p>
             </section>
-            <section class="topic" id="installation">
+            <section class="topic" id="installation" data-topic="installation">
                 <h1>Installation</h1>
                 <p>Installation is fairly quick and easy.</p>
                 <p>For Windows (Using Chocolatey Package Manager):</p>
@@ -93,8 +93,8 @@
                 </p>
                 <pre><code class="language-shell">sass --watch input.scss output.css</code></pre>
             </section>
-            <section class="topic" id="features">
-                <section class="topic" id="variables">
+            <section class="topic" id="features" data-topic="features">
+                <section class="topic" id="variables" data-topic="variables">
                     <h1>Sass Variables</h1>
                     <i>Not to be confused with CSS variables (or CSS custom properties)</i>
                     <p>Like CSS, Sass features the usage of variables that store various kinds of data.
@@ -143,7 +143,7 @@ h1 {
                         </div>
                     </section>
                 </section>
-                <section class="topic" id="interpolation">
+                <section class="topic" id="interpolation" data-topic="interpolation">
                     <h1>Interpolation</h1>
                     <p>Interpolation (aka variable substitution) is used to replace an expression containing at least one variable with its value when evaluated.</p>
                     <p>In Sass, it is denoted by <code class="language-sass">#{$variable-name}</code></p>
@@ -167,7 +167,7 @@ h1 {
                         </div>
                     </section>
                 </section>
-                <section class="topic" id="nesting">
+                <section class="topic" id="nesting" data-topic="nesting">
                     <h1>Nesting</h1>
                     <p>Unlike CSS, Sass supports selector hierarchy. 
                         This means that you can style classes when they fall under certain, other parent classes.

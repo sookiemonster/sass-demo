@@ -36,6 +36,16 @@ $black: #000000;
     transition: $x;
 }
 
+@mixin noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
 * {
     box-sizing: border-box;
 }
@@ -76,31 +86,33 @@ body {
     svg {
         @include center;
         fill: $light-gray;
+        width: $width - 10px;
+
+        @include transition(opacity .2s ease-out)
     }
 
     #prompt-close {
-        visibility: hidden;
         opacity: 0;
     }
 
 }
 
 #nav-pane {
+    $nav-width: 300px;
     position: fixed;
     top: 0;
-    right: 0;
+    right: -1 * $nav-width;
 
     display: flex;
     align-items: center;
-    width: 300px;
+    width: $nav-width;
     padding-left: 70px;
     height: 100vh;
 
-    // border-left: {
-    //     color: $med-gray;
-    //     width: 1px;
-    //     style: solid;
-    // }
+    // transform: translate3d(0, 0, 0);
+
+    @include transition(transform .4s ease);
+    @include noselect;
 
     background-color: color.scale($dark-gray, $alpha: -50%);
     backdrop-filter: blur(4px);
