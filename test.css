@@ -1,0 +1,16 @@
+article[role=main] {
+  width: 100%;
+  padding: 50px;
+}
+article[role=main] h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  color: red;
+}
+article[role=main] image {
+  border-radius: 30px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+/*# sourceMappingURL=test.css.map */

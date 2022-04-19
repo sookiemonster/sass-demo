@@ -1,21 +1,39 @@
+// Module Importing
+@use 'sass:color';
+
 // Font Importing
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
 // Font Variables
-$merriweather: 'Merriweather', serif;
 $lato: 'Lato', sans-serif;
 
 // Color Variables
+$white: #FFFFFF;
 $sass-pink: #CD6799;
 $beige: #FBEDC7;
 $light-gray: #DEDEDC;
 $med-gray: #D3D3D1;
-$dark-gray: #292929;
+$dark-gray: #141414;
+$black: #000000;
 
 @mixin fullscreen {
     width: 100%;
     height: 100%;
+}
+
+@mixin center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0)
+}
+
+@mixin transition($x...) {
+    -webkit-transition: $x;
+    -moz-transition: $x;
+    -ms-transition: $x;
+    -o-transition: $x;
+    transition: $x;
 }
 
 * {
@@ -24,6 +42,8 @@ $dark-gray: #292929;
 
 html {
     @include fullscreen;
+    scroll-behavior: smooth;
+    scroll-padding-top: 20px;
 }
 
 body {
@@ -31,6 +51,102 @@ body {
     padding: 0;
     margin: 0;
     background-color: $med-gray;
+}
+
+// Navigation Styling
+
+#nav-toggle {
+    $width: 50px;
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    width: $width;
+    height: $width;
+    background-color: $dark-gray;
+    border-radius: 50%;
+    z-index: 5;
+
+    cursor: pointer;
+    @include transition(background-color .2s ease-out);
+
+    &:hover {
+        background-color: color.scale($dark-gray, $lightness: 30%);
+    }
+
+    svg {
+        @include center;
+        fill: $light-gray;
+    }
+
+    #prompt-close {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+}
+
+#nav-pane {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    width: 300px;
+    padding-left: 70px;
+    height: 100vh;
+
+    // border-left: {
+    //     color: $med-gray;
+    //     width: 1px;
+    //     style: solid;
+    // }
+
+    background-color: color.scale($dark-gray, $alpha: -50%);
+    backdrop-filter: blur(4px);
+
+    z-index: 4;
+
+    ul {
+        $letter_gap: 1.5px;
+
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-family: $lato;
+
+        .current {
+            font-weight: 700;
+            letter-spacing: $letter_gap;
+            border-left: 2px solid $sass-pink;
+        }
+        
+        a {
+            color: $light-gray;
+            text-decoration: none;
+        }
+
+        li {
+            margin: 10px 0;
+            padding-left: .5em;
+            font-size: 1.15rem;
+            @include transition(letter-spacing .15s cubic-bezier(.17,.67,.75,1.97));        
+
+            &:hover {
+                letter-spacing: $letter_gap;
+            }
+        }
+
+        // Nested List Styling
+        ul {
+            padding-left: 1em;
+
+            li {
+                font-size: 1rem;
+            }
+
+        }
+    }
 }
 
 // Landing Container
@@ -62,4 +178,110 @@ h1 {
 
 .highlight {
     color: $sass-pink;
+}
+
+pre {
+    width: 100%;
+    border-color: $dark-gray !important;
+    border-radius: 10px;
+    font-size: .9rem;
+    background-color: $dark-gray;
+}
+
+// Section Styling
+
+article {
+    $gap: 20px;
+    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $gap;
+    width: 100%;
+    padding: 50px 100px;
+
+    & > section {
+        padding: 60px;
+        border-radius: 30px;
+        background-color: $light-gray;
+        
+        section:nth-of-type(n+2) {
+            margin-top: 50px;
+        }
+
+        // Section Typography Styling
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        
+        p, li {
+            font: {
+                family: $lato;
+                size: 1.15rem;
+            }
+
+            code {
+                border-color: $dark-gray !important;
+                font-size: .9rem !important;
+                padding-bottom: 3px !important;
+            }
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+    } 
+}
+
+// Example Stylings
+        
+.example {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+
+    div {
+        position: relative;
+        width: 100%;
+    }
+
+    span[role="note"] {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 12px;
+        padding: 5px 1ch;
+
+        border: {
+            radius: 4px;
+            width: 1px;
+            color: color.scale($sass-pink, $alpha: -50%);
+            style: solid;
+        }
+
+        font: {
+            family: $lato;
+            size: .8rem;
+        }
+        letter-spacing: .1em;
+        text-transform: uppercase;
+
+        color: $sass-pink;
+        background-color: darken($dark-gray, 10%);
+        z-index: 2;
+    }
+
+    pre {
+        margin: 0;
+    }
+}
+
+@mixin fill-row {
+    grid-column: -1/1;
+    width: auto;
+}
+
+#definition, #features {
+    @include fill-row
 }

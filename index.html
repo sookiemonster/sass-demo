@@ -6,8 +6,30 @@
 
         <title>Sass Demo</title>
         <link rel="stylesheet" href="output.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism-twilight.min.css" integrity="sha512-ch9ThmrGmkVrVm9tL/puGmSfzQps4yk9LDrWuswb65ZnPOIKuYZBen1yn3ez/fEbgeBqrU/IJ443OqgallfE9Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
     <body>
+        <div id="nav-toggle">
+            <svg id="prompt-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+              </svg>
+            <svg id="prompt-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 11">
+                <rect width="20" height="2.5" rx="1"></rect>
+                <rect y="8" width="20" height="2.5" rx="1"></rect>
+            </svg>
+        </div>
+        <div id="nav-pane">
+            <ul>
+                <li><a href="#definition">What is Sass?</a></li>
+                <li><a href="#installation">Setup</a></li>
+                <li><a href="#features">Features</a></li>
+                <ul>
+                    <li><a href="#variables">Sass Variables</a></li>
+                    <li><a href="#interpolation">Interpolation</a></li>
+                    <li><a href="#nesting">Nesting</a></li>
+                </ul>
+            </ul>
+        </div>
         <header>
             <svg id="sass-logo" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             viewBox="0 0 547.8 410.6" xml:space="preserve">
@@ -41,8 +63,167 @@
             </svg>
             <h1>Syntactically Awesome Stylesheets</h1>
         </header>
-        <article>
-            <h1></h1>
+        <article role="main">
+            <section class="topic" id="definition">
+                <h1>What is <span class="highlight">Sass?</span></h1>
+                <p>Sass is:
+                    <ul>
+                        <li>"CSS with superpowers"</li>
+                        <li>A stylesheet language that is compiled to CSS</li>
+                    </ul>
+                </p>
+            </section>
+            <section class="topic" id="installation">
+                <h1>Installation</h1>
+                <p>Installation is fairly quick and easy.</p>
+                <p>For Windows (Using Chocolatey Package Manager):</p>
+                <pre><code class="language-shell"></code>choco install sass</code></pre>
+                <p>For Mac OS X or Linux (Homebrew):</p>
+                <pre><code class="language-shell"></code>brew install sass/sass/sass</code></pre>
+            </section>
+            <section id="compilation">
+                <h1>Compiling</h1>
+                <p>
+                    Simply write it, compile it, and pop the CSS file into your web application.
+                </p>
+                <pre><code class="language-shell">sass input.scss output.css</code></pre>
+                <p>
+                    You can tell Sass to auto-update (recompile) your output CSS file 
+                    whenever saving changes to the source Sass file.
+                </p>
+                <pre><code class="language-shell">sass --watch input.scss output.css</code></pre>
+            </section>
+            <section class="topic" id="features">
+                <section class="topic" id="variables">
+                    <h1>Sass Variables</h1>
+                    <i>Not to be confused with CSS variables (or CSS custom properties)</i>
+                    <p>Like CSS, Sass features the usage of variables that store various kinds of data.
+                        <ul>
+                            <li>Imperative (as opposed to CSS variables being declarative)</li>
+                            <li>All compiled away when going from Sass to CSS </li>
+                            <li>Utilizes different syntax: 
+                                <code class="language-sass">$variable_name</code>
+                            </li>
+                        </ul>
+                    </p>
+                    <section class="example">
+                        <div>
+                            <span role="note">Sass</span>
+                            <pre><code class="language-sass">// Initialize a CSS variable
+:root { 
+    --font: 'Lato', sans-serif;
+}
+
+// Initialize a Sass variable
+$arial: 'Arial', sans-serif;
+
+p {
+    font-family: $arial;
+}
+
+h1 {
+    font-family: var(--font);
+}
+                            </code></pre>
+                        </div>
+                        <div>
+                            <span role="note">CSS</span>
+                            <pre><code class="language-css">:root {
+    --font: "Lato", sans-serif;
+}
+
+p {
+    font-family: "Arial", sans-serif;
+}
+
+h1 {
+    font-family: var(--font);
+}
+                            </code></pre>
+                        </div>
+                    </section>
+                </section>
+                <section class="topic" id="interpolation">
+                    <h1>Interpolation</h1>
+                    <p>Interpolation (aka variable substitution) is used to replace an expression containing at least one variable with its value when evaluated.</p>
+                    <p>In Sass, it is denoted by <code class="language-sass">#{$variable-name}</code></p>
+                    <section class="example">
+                        <div>
+                            <span role="note">Sass</span>
+                            <pre><code class="language-sass">.box {
+    $width: 40px;
+    width: $width;
+    height: #{$width * 2};
+}
+                            </code></pre>
+                        </div>
+                        <div>
+                            <span role="note">CSS</span>
+                            <pre><code class="language-css">.box {
+    width: 40px;
+    height: 80px;
+}
+                            </code></pre>
+                        </div>
+                    </section>
+                </section>
+                <section class="topic" id="nesting">
+                    <h1>Nesting</h1>
+                    <p>Unlike CSS, Sass supports selector hierarchy. 
+                        This means that you can style classes when they fall under certain, other parent classes.
+                    </p>
+                    <p>You can also nest CSS properties that have the same prefix (eg. font-family & font-weight).
+                    </p>
+                    <section class="example">
+                        <div>
+                            <span role="note">Sass</span>
+                            <pre><code class="language-sass">article[role="main"] {
+    width: 100%;
+    padding: 50px;
+        
+    h1 {
+        font: {
+            family: 'Times New Roman', Times, serif;
+            weight: bold;
+        }
+        color: red;
+    }
+
+    image {
+        border: {
+            radius: 30px;
+            width: 1px;
+            style: solid;
+        }
+    }
+}
+                            </code></pre>
+                        </div>
+                        <div>
+                            <span role="note">CSS</span>
+                            <pre><code class="language-css">article[role=main] {
+  width: 100%;
+  padding: 50px;
+}
+article[role=main] h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  color: red;
+}
+article[role=main] image {
+  border-radius: 30px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+                            </code></pre>
+                        </div>
+                    </section>
+                </section>
+            </section>
         </article>
+        <script src="script.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js" integrity="sha512-/Swpp6aCQ0smuZ+zpklJqMClcUlvxhpLf9aAcM7JjJrj2waCU4dikm3biOtMVAflOOeniW9qzaNXNrbOAOWFCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-GP4x8UWxWyh4BMbyJGOGneiTbkrWEF5izsVJByzVLodP8CuJH/n936+yQDMJJrOPUHLgyPbLiGw2rXmdvGdXHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </body>
 </html>
