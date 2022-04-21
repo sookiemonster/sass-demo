@@ -1,20 +1,64 @@
-article[role="main"] {
-    width: 100%;
-    padding: 50px;
-        
-    h1 {
-        font: {
-            family: 'Times New Roman', Times, serif;
-            weight: bold;
-        }
-        color: red;
+@use 'sass:math';
+
+// Mixins
+
+@mixin center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0)
+}
+
+@mixin transition($x...) {
+    // Ensures cross-browser support
+    -webkit-transition: $x;
+    -moz-transition: $x;
+    -ms-transition: $x;
+    -o-transition: $x;
+    transition: $x;
+}
+
+@mixin fill-bg($image, $pos: center) {
+    background: $image;
+    background-position: $pos;
+}
+
+.box {
+    @include center;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+
+    &:hover {
+        background-color: red;
+        width: 100px;
     }
 
-    image {
-        border: {
-            radius: 30px;
-            width: 1px;
-            style: solid;
-        }
+    @include transition(background-color 0.2s ease-out, width 0.5s ease-out)
+}
+
+.image-container {
+    @include fill-bg('duckie.png');
+}
+
+// Functions
+
+@function average($nums...) {
+    $sum: 0;
+    @if (length($nums) == 0) {
+        @return 0;
     }
+    @else {
+        @each $number in $nums {
+            $sum: $sum + $number;
+        }
+        @return math.div($sum, length($nums));
+    }
+}
+
+.circle {
+    $diameter: average(20px, 30px, 50px);
+    width: $diameter;
+    height: $diameter;
+    border-radius: 50%;
 }

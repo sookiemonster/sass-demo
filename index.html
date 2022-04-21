@@ -27,6 +27,8 @@
                     <li><a href="#variables">Sass Variables</a></li>
                     <li><a href="#interpolation">Interpolation</a></li>
                     <li><a href="#nesting">Nesting</a></li>
+                    <li><a href="#mixins">Mixins & Functions</a></li>
+                    <li><a href="#modules">Modules & Partials</a></li>
                 </ul>
             </ul>
         </div>
@@ -102,7 +104,7 @@
                             <li>Imperative (as opposed to CSS variables being declarative)</li>
                             <li>All compiled away when going from Sass to CSS </li>
                             <li>Utilizes different syntax: 
-                                <code class="language-sass">$variable_name</code>
+                                <code class="language-sass">$variable-name</code>
                             </li>
                         </ul>
                     </p>
@@ -169,7 +171,7 @@ h1 {
                 </section>
                 <section class="topic" id="nesting" data-topic="nesting">
                     <h1>Nesting</h1>
-                    <p>Unlike CSS, Sass supports selector hierarchy. 
+                    <p>Sass supports selector hierarchy. 
                         This means that you can style classes when they fall under certain, other parent classes.
                     </p>
                     <p>You can also nest CSS properties that have the same prefix (eg. font-family & font-weight).
@@ -183,7 +185,7 @@ h1 {
         
     h1 {
         font: {
-            family: 'Times New Roman', Times, serif;
+            family: 'Times New Roman', serif;
             weight: bold;
         }
         color: red;
@@ -206,7 +208,7 @@ h1 {
   padding: 50px;
 }
 article[role=main] h1 {
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Times New Roman", serif;
   font-weight: bold;
   color: red;
 }
@@ -215,6 +217,160 @@ article[role=main] image {
   border-width: 1px;
   border-style: solid;
 }
+
+                            </code></pre>
+                        </div>
+                    </section>
+                </section>
+                <section class="topic" id="mixins" data-topic="mixins">
+                    <h1>Mixins & Functions</h1>
+                    <p>Mixins are essentially macros; they can take arguments and output CSS stylings based off of them. 
+                        Functions behave as they do in other languages; they can take arguments and then return a specific value.
+                        <ul>
+                            <li>Default values can be specified.</li>
+                            <li>Supports flow control (eg. conditionals and iterators)</li>
+                            <li>Can support an infinite number of arguments by appending ellipses to the last argument. These arguments are then passed as a list called an argument list</li>
+                            <li>Mixins
+                                <ul>
+                                    <li>Created using <code class="language-sass">@mixin mixin-name</code></li>
+                                    <li>Included into the current styling using <code class="language-sass">@include mixin-name</code></li>
+                                </ul>
+                            </li>
+                            <li>Functions</li>
+                                <ul>
+                                    <li>Created using <code class="language-sass">@function function-name(arg1, arg2, arglist...)</code></li>
+                                    <li>Called using <code class="language-sass">function-name(x, y, z)</code></li>
+                                </ul>
+                        </ul>
+                    </p>
+                    <section class="example">
+                        <div>
+                            <span role="note">Sass</span>
+                            <pre><code class="language-sass">// Mixins
+
+@mixin center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0)
+}
+
+@mixin transition($x...) {
+    // Ensures cross-browser support
+    -webkit-transition: $x;
+    -moz-transition: $x;
+    -ms-transition: $x;
+    -o-transition: $x;
+    transition: $x;
+}
+
+@mixin fill-bg($image, $pos: center) {
+    background: $image;
+    background-position: $pos;
+}
+
+.box {
+    @include center;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+
+    &:hover {
+        background-color: red;
+        width: 100px;
+    }
+
+    @include transition(background-color 0.2s ease-out, width 0.5s ease-out)
+}
+
+.image-container {
+    @include fill-bg('duckie.png');
+}
+                            </code></pre>
+                        </div>
+                        <div>
+                            <span role="note">CSS</span>
+                            <pre><code class="language-css">.box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  -webkit-transition: background-color 0.2s ease-out, width 0.5s ease-out;
+  -moz-transition: background-color 0.2s ease-out, width 0.5s ease-out;
+  -ms-transition: background-color 0.2s ease-out, width 0.5s ease-out;
+  -o-transition: background-color 0.2s ease-out, width 0.5s ease-out;
+  transition: background-color 0.2s ease-out, width 0.5s ease-out;
+}
+.box:hover {
+  background-color: red;
+  width: 100px;
+}
+
+.image-container {
+    background: "duckie.png";
+    background-position: center;
+}
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section class="example">
+                        <div>
+                            <span role="note">Sass</span>
+                            <pre><code class="language-sass">// Functions
+@use 'sass:math';
+@function average($nums...) {
+    $sum: 0;
+    @if (length($nums) == 0) {
+        @return 0;
+    }
+    @else {
+        @each $number in $nums {
+            $sum: $sum + $number;
+        }
+        @return math.div($sum, length($nums));
+    }
+}
+
+.circle {
+    $diameter: average(20px, 30px, 50px);
+    width: $diameter;
+    height: $diameter;
+    border-radius: 50%;
+}
+                            </code></pre>
+                        </div>
+                        <div>
+                            <span role="note">CSS</span>
+                            <pre><code class="language-css">.circle {
+  width: 33.3333333333px;
+  height: 33.3333333333px;
+  border-radius: 50%;
+}
+                            </code></pre>
+                        </div>
+                    </section>
+                </section>
+                
+                <!-- <section class="topic" id="modules" data-topic="modules">
+                    <h1>Modules & Partials</h1>
+                    <p>Sass also supports importing external Sass files using the <code class="language-sass">@use 'module'</code>. Like import systems in other languages,
+                        this means that you can inherit and use variables, functions, and mixins as well as inheriting CSS stylings.
+                    </p>
+                    <p>You can also nest CSS properties that have the same prefix (eg. font-family & font-weight).
+                    </p>
+                    <section class="example">
+                        <div>
+                            <span role="note">Sass</span>
+                            <pre><code class="language-sass">
+
+                            </code></pre>
+                        </div>
+                        <div>
+                            <span role="note">CSS</span>
+                            <pre><code class="language-css"> -->
 
                             </code></pre>
                         </div>

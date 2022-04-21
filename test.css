@@ -1,16 +1,31 @@
-article[role=main] {
-  width: 100%;
-  padding: 50px;
+.box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  -webkit-transition: background-color 0.2s ease-out, width 0.5s ease-out;
+  -moz-transition: background-color 0.2s ease-out, width 0.5s ease-out;
+  -ms-transition: background-color 0.2s ease-out, width 0.5s ease-out;
+  -o-transition: background-color 0.2s ease-out, width 0.5s ease-out;
+  transition: background-color 0.2s ease-out, width 0.5s ease-out;
 }
-article[role=main] h1 {
-  font-family: "Times New Roman", Times, serif;
-  font-weight: bold;
-  color: red;
+.box:hover {
+  background-color: red;
+  width: 100px;
 }
-article[role=main] image {
-  border-radius: 30px;
-  border-width: 1px;
-  border-style: solid;
+
+.image-container {
+  background: "duckie.png";
+  background-position: center;
+}
+
+.circle {
+  width: 33.3333333333px;
+  height: 33.3333333333px;
+  border-radius: 50%;
 }
 
 /*# sourceMappingURL=test.css.map */

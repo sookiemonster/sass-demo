@@ -6,12 +6,10 @@ let navOpen = false;
 
 let openNav = () => {
     navPane.style.transform = `translate3D(${-1 * navWidth}px, 0, 0)`;
-    console.log('opening');
 }
 
 let closeNav = () => {
     navPane.style.transform = `translate3D(0, 0, 0)`;
-    console.log("closing");
 }
 
 let promptOpen = document.getElementById("prompt-open");
@@ -62,7 +60,7 @@ let updateCurrent = (node) => {
 
 let options = {
     rootMargin: '0px',
-    threshold: 1.0
+    threshold: 0.1
 }
   
 
@@ -70,7 +68,7 @@ let callback = (entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting){
             clearHighlighted();
-            // console.log(entry.target);
+            console.log(entry.target);
             let topic = entry.target.dataset.topic;
             // console.log(`a[href=#${topic}]`);
             let navItem = document.querySelector(`a[href="#${topic}"]`).parentElement;
