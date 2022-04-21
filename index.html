@@ -75,6 +75,7 @@
                     </ul>
                 </p>
             </section>
+
             <section class="topic" id="installation" data-topic="installation">
                 <h1>Installation</h1>
                 <p>Installation is fairly quick and easy.</p>
@@ -83,6 +84,7 @@
                 <p>For Mac OS X or Linux (Homebrew):</p>
                 <pre><code class="language-shell"></code>brew install sass/sass/sass</code></pre>
             </section>
+
             <section id="compilation">
                 <h1>Compiling</h1>
                 <p>
@@ -95,6 +97,7 @@
                 </p>
                 <pre><code class="language-shell">sass --watch input.scss output.css</code></pre>
             </section>
+
             <section class="topic" id="features" data-topic="features">
                 <section class="topic" id="variables" data-topic="variables">
                     <h1>Sass Variables</h1>
@@ -145,6 +148,7 @@ h1 {
                         </div>
                     </section>
                 </section>
+
                 <section class="topic" id="interpolation" data-topic="interpolation">
                     <h1>Interpolation</h1>
                     <p>Interpolation (aka variable substitution) is used to replace an expression containing at least one variable with its value when evaluated.</p>
@@ -169,6 +173,7 @@ h1 {
                         </div>
                     </section>
                 </section>
+
                 <section class="topic" id="nesting" data-topic="nesting">
                     <h1>Nesting</h1>
                     <p>Sass supports selector hierarchy. 
@@ -222,6 +227,7 @@ article[role=main] image {
                         </div>
                     </section>
                 </section>
+
                 <section class="topic" id="mixins" data-topic="mixins">
                     <h1>Mixins & Functions</h1>
                     <p>Mixins are essentially macros; they can take arguments and output CSS stylings based off of them. 
@@ -353,25 +359,69 @@ article[role=main] image {
                         </div>
                     </section>
                 </section>
-                
-                <!-- <section class="topic" id="modules" data-topic="modules">
+
+                <section class="topic" id="modules" data-topic="modules">
                     <h1>Modules & Partials</h1>
-                    <p>Sass also supports importing external Sass files using the <code class="language-sass">@use 'module'</code>. Like import systems in other languages,
-                        this means that you can inherit and use variables, functions, and mixins as well as inheriting CSS stylings.
-                    </p>
-                    <p>You can also nest CSS properties that have the same prefix (eg. font-family & font-weight).
+                    <p>Sass also supports importing external Sass files using the <code class="language-sass">@use 'module'</code>.
+                     This means that you can inherit and use Sass members (variables, functions, & mixins) as well as CSS styles.
+                     <ul>
+                         <li>Importing modules and partials adds a namespace to reference Sass members</li>
+                         <li>If you want to privatize certain members, you can prepend the member name with a - or _, and they will not be imported into other stylesheets.</li>
+                         <li>If you don't want to compile the imported stylesheet, you can use a Sass partial</li>
+                         <ul>
+                            <li>Partials are denoted by a leading underscore in the filename</li>
+                         </ul>
+                     </ul>
                     </p>
                     <section class="example">
                         <div>
-                            <span role="note">Sass</span>
-                            <pre><code class="language-sass">
+                            <span role="note">Sass | module.scss</span>
+                            <pre><code class="language-sass">@mixin fill-container {
+    width: 100%;
+    height: 100%;
+}
 
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    @include fill-container;
+}
+
+* {
+    box-sizing: border-box;
+}
                             </code></pre>
                         </div>
                         <div>
-                            <span role="note">CSS</span>
-                            <pre><code class="language-css"> -->
+                            <span role="note">Sass | index.scss</span>
+                            <pre><code class="language-sass">@use 'module';
 
+.layout-container {
+    @include module.fill-container;
+    padding: 100px;
+}
+                            </code></pre>
+                        </div>
+                        <div>
+                            <span role="note">CSS | output.css</span>
+                            <pre><code class="language-css">body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.layout-container {
+  width: 100%;
+  height: 100%;
+  padding: 100px;
+}
                             </code></pre>
                         </div>
                     </section>

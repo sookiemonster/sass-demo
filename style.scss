@@ -277,7 +277,6 @@ article {
             size: .8rem;
         }
         letter-spacing: .1em;
-        text-transform: uppercase;
 
         color: $sass-pink;
         background-color: darken($dark-gray, 10%);
@@ -286,6 +285,7 @@ article {
 
     pre {
         margin: 0;
+        height: 100%;
     }
 }
 

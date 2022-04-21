@@ -207,13 +207,13 @@ article > section li {
   font-family: "Lato", sans-serif;
   font-size: 0.8rem;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: #CD6799;
   background-color: black;
   z-index: 2;
 }
 .example pre {
   margin: 0;
+  height: 100%;
 }
 
 #definition, #features {
