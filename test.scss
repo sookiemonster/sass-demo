@@ -1,6 +1,16 @@
-@use 'module';
+@function fib($n) {
+    $num: fib-helper($n, 0, 1);
+    @debug $num;
+    @return $num;
+}
 
-.layout-container {
-    @include module.fill-container;
-    padding: 100px;
+@function fib-helper($n, $fib1, $fib2) {
+    @if ($n == 0) {
+        @return $fib2;
+    }
+    @return fib-helper($n - 1, $fib2, $fib1 + $fib2);
+}
+
+.box {
+    width: #{fib(9)}px;
 }

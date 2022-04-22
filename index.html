@@ -28,7 +28,7 @@
                     <li><a href="#interpolation">Interpolation</a></li>
                     <li><a href="#nesting">Nesting</a></li>
                     <li><a href="#mixins">Mixins & Functions</a></li>
-                    <li><a href="#modules">Modules & Partials</a></li>
+                    <li><a href="#modules">Debugging</a></li>
                 </ul>
             </ul>
         </div>
@@ -423,6 +423,45 @@ body {
   padding: 100px;
 }
                             </code></pre>
+                        </div>
+                    </section>
+                </section>
+
+                <section class="topic" id="debug" data-topic="debug">
+                    <h1>Debugging</h1>
+                    <p>Sass also offers a neat collection of debugging tools to aid in troubleshooting during compilation
+                        <ul>
+                            <li><code class="language-sass">@error &lt;expression&gt;</code> Returns an error & prints a stack trace if the expression is true</li>
+                            <li><code class="language-sass">@warn &lt;expression&gt;</code> Prints the value of the expression & a stack trace of how the mixin / function was called</li>
+                            <li><code class="language-sass">@debug &lt;expression&gt;</code> Prints the value of the expression, the filename, & line number </li>
+                        </ul>
+                    </p>
+                    <section class="example">
+                        <div>
+                            <span role="note">Sass | fib.scss</span>
+                            <pre><code class="language-sass">@function fib($n) {
+    $num: fib-helper($n, 0, 1);
+    @debug $num;
+    @return $num;
+}
+
+@function fib-helper($n, $fib1, $fib2) {
+    @if ($n == 0) {
+        @return $fib2;
+    }
+    @return fib-helper($n - 1, $fib2, $fib1 + $fib2);
+}
+
+.box {
+    width: #{fib(9)}px;
+}
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section class="example">
+                        <div>
+                            <span role="note">shell</span>
+                            <pre><code class="language-shell">fib.scss:3 Debug: 55</code></pre>
                         </div>
                     </section>
                 </section>
