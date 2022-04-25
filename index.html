@@ -68,10 +68,11 @@
         <article role="main">
             <section class="topic" id="definition" data-topic="definition">
                 <h1>What is <span class="highlight">Sass?</span></h1>
-                <p>Sass is:
+                <p>
                     <ul>
                         <li>"CSS with superpowers"</li>
                         <li>A stylesheet language that is compiled to CSS</li>
+                        <li>Any valid CSS is valid Sass</li>
                     </ul>
                 </p>
             </section>
@@ -286,7 +287,8 @@ article[role=main] image {
         width: 100px;
     }
 
-    @include transition(background-color 0.2s ease-out, width 0.5s ease-out)
+    @include transition(background-color 0.2s 
+        ease-out, width 0.5s ease-out)
 }
 
 .image-container {
